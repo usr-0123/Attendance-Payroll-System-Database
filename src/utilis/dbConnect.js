@@ -4,8 +4,7 @@ import logger from './logger.js';
 
 dotenv.config()
 
-const{ SQL_USER,SQL_PASSWORD,SQL_SERVER,SQL_DB,SQL_SERVER_PORT,
-        SQL_ENCRYPT,SQL_TRUST_SERVER_CERTIFICATE}=process.env;
+const{ SQL_USER,SQL_PASSWORD,SQL_SERVER,SQL_DB,SQL_SERVER_PORT,SQL_ENCRYPT,SQL_TRUST_SERVER_CERTIFICATE}=process.env;
 
 const sqlConfig={
     user: SQL_USER,
@@ -24,14 +23,14 @@ let poolRequest;
 
 try {
     appPool= await sql.connect(sqlConfig);
-    poolRequest=()=>appPool.request();
+    poolRequest=()=> appPool.request();
     if(appPool){
         logger.info("DB connected Successfully")
     }
 } catch (error) {
-    logger.error("DB Connect Failed",error)
+    logger.error("DataBase Connect Failed:", error)
 }
 
-const closePool=async()=>sql.close();
+// const closePool=async()=>sql.close();
 
-export{poolRequest,sql,closePool}
+export{poolRequest,sql}

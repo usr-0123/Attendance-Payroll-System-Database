@@ -20,8 +20,11 @@
     "joi": "^17.12.2",
     "jsonwebtoken": "^9.0.2",
     "mssql": "^10.0.2",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.12",
     "nodemon": "^3.1.0",
     "pino": "^8.19.0",
-    "pino-pretty": "^10.3.1"
+    "pino-pretty": "^10.3.1",
+    "uuid": "^9.0.1"
   }
 }
