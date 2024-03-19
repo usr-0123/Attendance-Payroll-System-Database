@@ -57,6 +57,44 @@ export const addEmployeeService = async (newEmployee) => {
     }
 }
 
+// Log in employee
+export const authenticateloginEmployeeService = async (employee) => {
+  try {
+    const employeeFoundResponse = await poolRequest()
+      .input("Email_address", sql.VarChar, employee.Email_address)
+      .query("SELECT * FROM employee WHERE Email_address=@Email_address");
+
+      
+    //   console.log("found employee", employeeFoundResponse);
+
+    if (employeeFoundResponse.recordset.length = 1) {
+        // console.log(employeeFoundResponse);
+
+      const storedPassword = employeeFoundResponse.recordset[0].Password;
+      const isPasswordValid = await bcrypt.compare(employee.Password, storedPassword);
+
+      if (isPasswordValid) {
+        const token = jwt.sign({
+          EmployeeID: employeeFoundResponse.recordset[0].EmployeeID,
+          Email_address: employeeFoundResponse.recordset[0].Email_address
+        }, process.env.JWT_SECRET, { expiresIn: "24h" });
+
+        console.log("Token is", token);
+        const { Password, ...employeeData } = employeeFoundResponse.recordset[0];
+        return { employee: employeeData, token: `JWT ${token}` };
+      } else {
+        return { error: 'Invalid Credentials' };
+      }
+    } else {
+      return { error: "Invalid Credentials" };
+    }
+  } catch (error) {
+    logger.error("Login Error", error);
+    return { error: "Invalid Credentials" };
+  }
+};
+
+
 // Fetch employees service
 export const getAllEmployeeService = async () => {
     try {
@@ -80,3 +118,15 @@ export const getEmployeeByEmailService = async (Email_address) => {
         return error;
     }
 }
+
+// Delete an employee by email
+export const deleteEmployeeServices=async(Email_address)=>{
+    try {
+        const response= await poolRequest()
+        .input('Email_address', sql.VarChar,Email_address)
+        .query(`DELETE FROM employees WHERE Email_address = @Email_address `)
+        return response;
+    } catch (error) {
+        return error;
+    }
+  }

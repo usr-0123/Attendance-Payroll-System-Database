@@ -25,3 +25,13 @@ export const employeeValidator = (employee) => {
 
     return employeeValidationSchema.validate(employee)
 };
+
+export const employeeLoginValidator = (employee) => {
+    const employeeLoginSchema = joi.object({
+      Email_address: joi.string().email().required(),
+      Password: joi.string().min(8).required(),
+      
+    });
+  
+    return employeeLoginSchema.validate(employee);
+  };

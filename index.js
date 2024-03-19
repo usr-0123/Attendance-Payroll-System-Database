@@ -4,6 +4,7 @@ import cors from 'cors'
 import bodyParser from 'body-parser'
 
 import employeeRouter from './src/routes/employeeRoutes.js'
+import attendanceRouter from './src/routes/attendanceRoutes.js'
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(cors(corsOptions));
 
 app.use('/api', employeeRouter)
+app.use('/api', attendanceRouter)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

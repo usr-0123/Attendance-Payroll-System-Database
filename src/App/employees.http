@@ -1,0 +1,43 @@
+# Registering a new employee
+###
+POST  http://localhost:8200/api/employee/register
+Content-Type: application/json
+
+{
+    "EmployeeID":"1234",
+    "First_name":"Lewis Kipngetich",
+    "Last_name":"Kemboi",
+    "Email_address":"kemboilewis@example.com",
+    "Password":"12345678",
+    "Contact_information":"0701282658",
+    "Gender":"Male",
+    "Admin_role":"Admin",
+    "Date_of_Birth":"07/07/1997",
+    "Country":"Kenya",
+    "City":"Nyeri",
+    "Street":"3948 NYR str",
+    "Postal_code":"94276",
+    "Profile_url":""
+}
+
+# Log in the employee and provide token
+###
+POST  http://localhost:8200/api/employee/loginEmployee
+Content-Type:  application/json
+
+{
+    "Email_address":"kemboilewis@example.com",
+    "Password":"12345678"
+}
+
+# Fetching all the employees
+###
+GET http://localhost:8200/api/employee/fetchall
+
+# Fetching one employee by passing the employeeID
+###
+GET http://localhost:8200/api/employee/fetchByEmail/kemboilewis@example.com
+
+# Delete an employee by email address
+###
+DELETE http://localhost:8200/api/employee/deleteByEmail/kemboilewis@example.com

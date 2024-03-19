@@ -22,12 +22,15 @@ import {
 import {
     addEmployeeService,
     getAllEmployeeService,
-    getEmployeeByEmailService
+    getEmployeeByEmailService,
+    deleteEmployeeServices,
+    authenticateloginEmployeeService
 } from '../services/employeesServices.js'
 
 // import validators
 import {
-    employeeValidator
+    employeeValidator,
+    employeeLoginValidator
 } from '../validators/employeeValidators.js'
 
 // Register new employee
@@ -78,6 +81,39 @@ export const registerNewEmployeeController = async (req, res) => {
     }
 }
 
+// Login employee
+export const loginEmployeeController=async(req,res)=>{
+    try {
+        // console.log("I am reached here at the try section");
+
+      const { Email_address, Password } = req.body;
+
+        const { error } = employeeLoginValidator(req.body);
+      if (error) {
+        return res.status(400).json({ error: error.details[0].message });
+      }
+      const employee = await getEmployeeByEmailService(Email_address);
+      console.log("employee", employee);
+      if (!employee) {
+        return sendNotFound(res, "Employee not found");
+      }else{
+        // console.log("I am reached at the else");
+
+
+      const loggedInmployee = await authenticateloginEmployeeService({ Email_address, Password });
+      console.log("Logged in", loggedInmployee);
+
+      // Successful login
+      res.status(200).json({ employee ,message:"Logged In successfully!" });
+      }
+    } catch (error) {
+        
+    // console.log("I am reached here at the catch section");
+
+      return sendServerError(res, "Internal server error");
+    }
+}
+
 // Get all employees
 export const getAllEmployeesController = async (req, res) => {
     try {
@@ -103,5 +139,28 @@ export const getEmployeeByEmailController=async(req,res)=>{
       
     } catch (error) {
       return error
+    }
+  }
+
+  // Delete an employee by email
+  // Fix the bug, unable to check if user exists before deleting
+
+  export const deleteEmployeeController=async(req,res)=>{
+    try {
+      const {Email_address}=req.params
+      const singleEmployeeByEmail =await getEmployeeByEmailService(Email_address)
+      if(singleEmployeeByEmail.rowsAffected == 0){
+        sendServerError(res, "Employee not found")
+    }else{
+        const response = await deleteEmployeeServices(Email_address)
+        
+        if (response.message) {
+            sendServerError(res, response.message)
+        } else {
+            sendDeleteSuccess(res, `Employee with email address ${Email_address} was deleted successfully`);
+        }
+    }
+    } catch (error) {
+      sendServerError(res, error.message);
     }
   }

@@ -1,0 +1,32 @@
+# Create a new attendance
+###
+POST  http://localhost:8200/api/attendance/new
+Content-Type: application/json
+{
+    "AttendanceID":"1",
+    "EmployeeID": "EMP001",
+    "Date": "2024-03-19",
+    "TimeIn": "2024-03-19 08:00:00",
+    "TimeOut": "2024-03-19 16:00:00"  
+}
+
+# Read present attendance
+###
+GET http://localhost:8200/api/attendance/all
+
+GET http://localhost:8200/api/attendance/1
+
+# Update an attednance
+PUT  http://localhost:8200/api/attendance/1
+Content-Type: application/json
+{
+    "AttendanceID":"1",
+    "EmployeeID": "EMP001",
+    "Date": "2024-03-19",
+    "TimeIn": "2024-03-19 08:00:00",
+    "TimeOut": "2024-03-19 17:00:00"  
+}
+
+# Delete an attednance
+###
+DELETE http://localhost:8200/api/attendance/1
