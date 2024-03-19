@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import nodemailer from 'nodemailer';
-import logger from "../utilis/logger.js";
+// import logger from "../utilis/logger.js";
 // import emailTemp from "../../../MailActivities/emailTemp.js";
 
 import {
@@ -99,7 +99,6 @@ export const loginEmployeeController=async(req,res)=>{
       }else{
         // console.log("I am reached at the else");
 
-
       const loggedInmployee = await authenticateloginEmployeeService({ Email_address, Password });
       console.log("Logged in", loggedInmployee);
 
@@ -108,9 +107,9 @@ export const loginEmployeeController=async(req,res)=>{
       }
     } catch (error) {
         
-    // console.log("I am reached here at the catch section");
+    // console.log("Clg",error.message);
 
-      return sendServerError(res, "Internal server error");
+      return sendServerError(res, error.message );
     }
 }
 
@@ -138,7 +137,7 @@ export const getEmployeeByEmailController=async(req,res)=>{
     } 
       
     } catch (error) {
-      return error
+      return error.message;
     }
   }
 

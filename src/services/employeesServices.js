@@ -83,14 +83,14 @@ export const authenticateloginEmployeeService = async (employee) => {
         const { Password, ...employeeData } = employeeFoundResponse.recordset[0];
         return { employee: employeeData, token: `JWT ${token}` };
       } else {
-        return { error: 'Invalid Credentials' };
+        return error.message ;
       }
     } else {
-      return { error: "Invalid Credentials" };
+      return error.message ;
     }
   } catch (error) {
-    logger.error("Login Error", error);
-    return { error: "Invalid Credentials" };
+    // logger.error("Login Error", error);
+    return error.message ;
   }
 };
 

@@ -1,0 +1,33 @@
+# CREATE SCHEDULE
+###
+POST http://localhost:8200/api/schedule
+Content-Type: application/json
+{
+    "ScheduleID":"1",
+    "ScheduleName":"",
+    "CheckIn":"",
+    "CheckOut":"",
+    "Days":""
+}
+
+# READ SCHEDULE
+###
+GET http://localhost:8200/api/schedule/all
+
+###
+GET  http://localhost:8200/api/schedule/1
+
+# UPDATE SCHEDULE
+###
+PUT  http://localhost:8200/api/schedule/1
+Content-Type: application/json
+{
+    "ScheduleID":"1",
+    "CheckIn":"",
+    "CheckOut":"",
+    "Days":""
+}
+
+# DELETE SCHEDULE
+###
+DELETE  http://localhost:8200/api/schedule/1

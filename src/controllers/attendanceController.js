@@ -72,7 +72,7 @@ export const getAttendanceController = async (req, res) => {
             }
         }
     } catch (error) {
-        sendServerError(res, error);
+        sendServerError(res, error.message);
     }
 }
 
@@ -104,7 +104,7 @@ export const updateAttendanceController = async (req, res) => {
                 return sendServerError(res, error.message);
             }
       
-        const response = await updateAttendanceController(AttendanceID, {AttendanceID,EmployeeID,Date,TimeIn,TimeOut});
+        const response = await updateAttendanceService(AttendanceID, {AttendanceID,EmployeeID,Date,TimeIn,TimeOut});
           // console.log(response);
             if (response.rowsAffected == 1) {
                 return res.status(201).json({ message: "Attendance updated successfully" });

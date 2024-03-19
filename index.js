@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 
 import employeeRouter from './src/routes/employeeRoutes.js'
 import attendanceRouter from './src/routes/attendanceRoutes.js'
+import scheduleRouter from './src/routes/scheduleRoutes.js'
 
 dotenv.config()
 
@@ -22,6 +23,7 @@ app.use(cors(corsOptions));
 
 app.use('/api', employeeRouter)
 app.use('/api', attendanceRouter)
+app.use('/api', scheduleRouter)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
