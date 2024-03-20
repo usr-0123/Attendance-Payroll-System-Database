@@ -1,0 +1,33 @@
+# CREATE
+### Craete a new deduction entry
+POST http://localhost:8200/api/deduction
+Content-Type: application/json
+
+{
+    "DeductionID": "D6",
+    "DeductionName": "Life Insurance",
+    "DeductionDescription": "Monthly life insurance deduction",
+    "Amount": 500
+}
+
+# READ
+### Fetch all deductions entries
+GET http://localhost:8200/api/deduction/all
+
+### Fetch one deduction entry
+GET http://localhost:8200/api/deduction/D1
+
+# UPDATE
+### Update deduction entry
+PUT http://localhost:8200/api/deduction/D1
+Content-Type: application/json
+
+{
+    "DeductionName": "Health Insurance",
+    "DeductionDescription": "Monthly health insurance deduction",
+    "Amount": 1503
+}
+
+# DELETE
+### Delete an entry of deduction
+DELETE http://localhost:8200/api/deduction/D1

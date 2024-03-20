@@ -60,3 +60,11 @@ CREATE TABLE Advance (
     Approval_Date DATETIME,
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
+
+-- Deductions table
+CREATE TABLE Deductions (
+    DeductionID VARCHAR(255) PRIMARY KEY,
+    DeductionName VARCHAR(255),
+    DeuctionDescription VARCHAR(255),
+    Amount INT
+)

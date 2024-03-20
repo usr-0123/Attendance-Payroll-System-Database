@@ -47,7 +47,7 @@ export const addOvertimeController = async (req, res) => {
             // Call service to add overtime entry
             const response = await addOvertimeService(newOvertime);
 
-            console.log(response);
+            // console.log(response);
 
             if (response.message) {
                 sendServerError(res, response.message);
