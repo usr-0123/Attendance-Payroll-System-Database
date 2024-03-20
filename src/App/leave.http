@@ -1,0 +1,41 @@
+# CREATE
+
+### Add a new leave
+POST http://localhost:8200/api/leave
+Content-Type: application/json
+
+{
+    "LeaveID": "6",
+  "EmployeeID": "EMP001",
+  "BeginDate": "2024-03-20T08:00:00.000Z",
+  "EndDate": "2024-03-25T17:00:00.000Z",
+  "Reason": "Nimechoka",
+  "DaysCount": 6
+}
+
+# READ
+
+### Fetch all the leave available 
+GET http://localhost:8200/api/leave/all
+
+### Fetch an leave by id
+GET http://localhost:8200/api/leave/1
+
+# UPDATE
+
+### Update one leave by id
+PUT http://localhost:8200/api/leave/9715825e-8b6d-4f21-a888-4dac82338db3
+Content-Type: application/json
+
+{
+    "EmployeeID": "EMP001",
+    "BeginDate": "2024-03-20T08:00:00.000Z",
+    "EndDate": "2024-03-25T17:00:00.000Z",
+    "Reason": "Nimechoka sana",
+    "DaysCount": 6
+}
+
+# DELETE
+
+### Delete an instance of leave
+DELETE http://localhost:8200/api/leave/1

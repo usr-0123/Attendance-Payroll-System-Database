@@ -83,6 +83,17 @@ CREATE TABLE Positions (
     DepartmentID VARCHAR(255),
     Salary VARCHAR(255),
     FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID)
-    
+
     -- Remember to fetch this table in the employees table
+)
+
+-- Leave table
+CREATE TABLE Leave (
+    LeaveID VARCHAR(255) PRIMARY KEY,
+    EmployeeID VARCHAR(255),
+    BeginDate DATETIME,
+    EndDate DATETIME,
+    Reason VARCHAR(255),
+    DaysCount INT,
+    FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )

@@ -11,6 +11,7 @@ import advanceRouter from './src/routes/advanceRoutes.js'
 import deductionRouter from './src/routes/deductionsRoutes.js'
 import departmentRouter from './src/routes/departmentRoutes.js'
 import positionRoutes from './src/routes/positionsRoutes.js'
+import leaveRouter from './src/routes/leaveRoutes.js'
 
 dotenv.config()
 
@@ -34,6 +35,7 @@ app.use('/api', advanceRouter)
 app.use('/api', deductionRouter)
 app.use('/api', departmentRouter)
 app.use('/api', positionRoutes)
+app.use('/api', leaveRouter)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);
