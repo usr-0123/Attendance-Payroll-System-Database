@@ -7,6 +7,7 @@ import employeeRouter from './src/routes/employeeRoutes.js'
 import attendanceRouter from './src/routes/attendanceRoutes.js'
 import scheduleRouter from './src/routes/scheduleRoutes.js'
 import overtimeRouter from './src/routes/overtimeRoutes.js'
+import advanceRouter from './src/routes/advanceRoutes.js'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.use('/api', employeeRouter)
 app.use('/api', attendanceRouter)
 app.use('/api', scheduleRouter)
 app.use('/api', overtimeRouter)
+app.use('/api', advanceRouter)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

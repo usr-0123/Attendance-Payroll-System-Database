@@ -46,6 +46,17 @@ CREATE TABLE Overtime (
     EmployeeID VARCHAR(255),
     Overtime_date DATEtIME,
     Duration VARCHAR(255),
-    Rate INT(255),
+    Rate INT,
+    FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
+)
+
+-- Advance cash table
+CREATE TABLE Advance (
+    AdvanceID VARCHAR(255) PRIMARY KEY,
+    EmployeeID VARCHAR(255),
+    RequestDate DATETIME,
+    Ammount INT,
+    Approval_Status BIT DEFAULT 0,
+    Approval_Date DATETIME,
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )

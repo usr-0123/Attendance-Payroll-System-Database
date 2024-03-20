@@ -1,0 +1,36 @@
+# CREATE
+### Create a new advance entry
+POST http://localhost:8200/api/advance
+Content-Type: application/json
+
+{
+    "AdvanceID": "1",
+    "EmployeeID": "EMP001",
+    "RequestDate": "2024-03-21T10:00:00.000Z",
+    "Amount": 1500,
+    "Approval_Status": false
+}
+
+# READ
+### Fetch all advance entries
+GET http://localhost:8200/api/advance/all
+
+### Fetch an advance by id
+GET  http://localhost:8200/api/advance/1
+
+# UPDATE
+### Update advance details
+PUT http://localhost:8200/api/advance/2
+Content-Type: application/json
+
+{
+    "EmployeeID": "EMP001",
+    "RequestDate": "2024-03-21T10:00:00.000Z",
+    "Amount": 1500,
+    "Approval_Status": false,
+    "Approval_Date": ""
+}
+
+# DELETE
+### Delete an advance entry
+DELETE http://localhost:8200/api/advance/1
