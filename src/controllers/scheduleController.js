@@ -25,7 +25,10 @@ import {
     deleteScheduleService
 } from "../services/scheduleServices.js"
 
-import {scheduleValidator} from "../validators/scheduleValidators.js"
+import {
+    scheduleValidator,
+    updateScheduleValidator
+} from "../validators/scheduleValidators.js"
 
 // Add a new schedule
 export const addScheduleController = async (req, res) => {
@@ -42,9 +45,10 @@ export const addScheduleController = async (req, res) => {
             const newSchedule = { ScheduleID, ScheduleName, CheckIn, CheckOut, Days }
             const response = await addScheduleService (newSchedule)
             if (response.message) {
+                // console.log(response);
                 sendServerError(res, response.message)
             } else {
-                sendCreated(res, "Schedule creayed successfully")
+                sendCreated(res, "Schedule created successfully")
             }
         } catch (error) {
             sendServerError(res, error.message);
@@ -83,21 +87,25 @@ export const updateScheduleController = async (req, res) => {
     try {
         const { ScheduleID } = req.params;
         const { ScheduleName, CheckIn, CheckOut, Days } = req.body;
-        const { error } = scheduleValidator({ ScheduleID, ScheduleName, CheckIn, CheckOut, Days })
+        const { error } = updateScheduleValidator({ ScheduleName, CheckIn, CheckOut, Days });
         if (error) {
             return sendServerError(res, error.message);
         }
 
-        const response = await updateScheduleService(ScheduleID, {ScheduleID, ScheduleName, CheckIn, CheckOut, Days})
-        if (response.rowsAffected == 1) {
-            return res.status(201).json({message: "Schedule updated successfully"})
+        const updateDetails = { ScheduleName, CheckIn, CheckOut, Days };
+
+        const response = await updateScheduleService(updateDetails, ScheduleID);
+
+        if (response.rowsAffected[0] === 1) {
+            return res.status(201).json({ message: "Schedule updated successfully" });
         } else {
-            sendNotFound(res, "Schedule not updated")
+            sendNotFound(res, "Schedule not updated");
         }
     } catch (error) {
         sendServerError(res, error.message);
     }
-}
+};
+
 
 //Delete Schedule
 export const deleteScheduleController = async (req, res) => {

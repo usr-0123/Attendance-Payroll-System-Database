@@ -2,12 +2,13 @@
 ###
 POST http://localhost:8200/api/schedule
 Content-Type: application/json
+
 {
-    "ScheduleID":"1",
-    "ScheduleName":"",
-    "CheckIn":"",
-    "CheckOut":"",
-    "Days":""
+    "ScheduleID":"10",
+    "ScheduleName":"Night Shift",
+    "CheckIn":"1900-01-01 08:00:00.000",
+    "CheckOut":"1900-01-01 19:00:00.000",
+    "Days":"Friday"
 }
 
 # READ SCHEDULE
@@ -19,13 +20,14 @@ GET  http://localhost:8200/api/schedule/1
 
 # UPDATE SCHEDULE
 ###
-PUT  http://localhost:8200/api/schedule/1
+PUT  http://localhost:8200/api/schedule/dd6842b0-6e96-44c3-a682-1dcdb287f652
 Content-Type: application/json
+
 {
-    "ScheduleID":"1",
-    "CheckIn":"",
-    "CheckOut":"",
-    "Days":""
+    "ScheduleName":"Check",
+    "CheckIn":"1900-01-01 08:00:00.000",
+    "CheckOut":"1900-01-01 09:00:00.000",
+    "Days":"Wednesday"
 }
 
 # DELETE SCHEDULE

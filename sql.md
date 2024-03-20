@@ -31,10 +31,21 @@ CREATE TABLE Attendance (
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 );
 
+-- Schedule table
 CREATE TABLE Schedule (
     ScheduleID VARCHAR(255) PRIMARY KEY,
 	ScheduleName VARCHAR(255),
     CheckIn DATETIME,
     CheckOut DATETIME,
     DAYS VARCHAR(255)
+)
+
+-- Overtime table
+CREATE TABLE Overtime (
+    OvertimeID VARCHAR(255) PRIMARY KEY,
+    EmployeeID VARCHAR(255),
+    Overtime_date DATEtIME,
+    Duration VARCHAR(255),
+    Rate INT(255),
+    FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )

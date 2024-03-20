@@ -1,0 +1,39 @@
+# CREATE
+
+### Add a new overtime
+POST http://localhost:8200/api/overtime
+Content-Type: application/json
+
+{
+    "OvertimeID":"OT006",
+    "EmployeeID":"EMP001",
+    "Overtime_date":"2024-03-15T18:00:00.000Z",
+    "Duration":"02:30:00",
+    "Rate":20
+}
+
+# READ
+
+### Fetch all the overtime available 
+GET http://localhost:8200/api/overtime/all
+
+### Fetch an overtime by id
+GET http://localhost:8200/api/overtime/OT004
+
+# UPDATE
+
+### Update one overtime by id
+PUT http://localhost:8200/api/overtime/OT004
+Content-Type: application/json
+
+{
+    "EmployeeID":"EMP001",
+    "Overtime_date":"2024-03-15T18:00:00.000Z",
+    "Duration":"02:30:00",
+    "Rate":25
+}
+
+# DELETE
+
+### Delete an instance of overtime
+DELETE http://localhost:8200/api/overtime/OT004
