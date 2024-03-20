@@ -9,6 +9,7 @@ import scheduleRouter from './src/routes/scheduleRoutes.js'
 import overtimeRouter from './src/routes/overtimeRoutes.js'
 import advanceRouter from './src/routes/advanceRoutes.js'
 import deductionRouter from './src/routes/deductionsRoutes.js'
+import departmentRouter from './src/routes/departmentRoutes.js'
 
 dotenv.config()
 
@@ -30,6 +31,7 @@ app.use('/api', scheduleRouter)
 app.use('/api', overtimeRouter)
 app.use('/api', advanceRouter)
 app.use('/api', deductionRouter)
+app.use('/api', departmentRouter)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

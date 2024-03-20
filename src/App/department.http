@@ -1,0 +1,35 @@
+# CREATE
+
+### Add a new department
+POST http://localhost:8200/api/department
+Content-Type: application/json
+
+{
+    "DepartmentID": "D6",
+    "DepartmentName": "It",
+    "MaximumOvertime": "08:00:00"
+}
+
+# READ
+
+### Fetch all the department available 
+GET http://localhost:8200/api/department/all
+
+### Fetch an department by id
+GET http://localhost:8200/api/department/D1
+
+# UPDATE
+
+### Update one department by id
+PUT http://localhost:8200/api/department/76deec36-a2f1-428d-8b1d-a46b03f3514f
+Content-Type: application/json
+
+{
+    "DepartmentName": "Its",
+    "MaximumOvertime": "08:00:00"
+}
+
+# DELETE
+
+### Delete an instance of department
+DELETE http://localhost:8200/api/department/76deec36-a2f1-428d-8b1d-a46b03f3514f

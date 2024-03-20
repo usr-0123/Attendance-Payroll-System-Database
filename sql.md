@@ -68,3 +68,21 @@ CREATE TABLE Deductions (
     DeuctionDescription VARCHAR(255),
     Amount INT
 )
+
+-- Department table
+CREATE TABLE Departments (
+    DepartmentID VARCHAR(255) PRIMARY KEY,
+    DepartmentName VARCHAR(255),
+    MaximumOvertime VARCHAR(255),
+)
+
+-- Positions table
+CREATE TABLE Positions (
+    PositionID VARCHAR(255) PRIMARY KEY,
+    Title VARCHAR(255),
+    DepartmentID VARCHAR(255),
+    Salary VARCHAR(255),
+    FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID)
+    
+    -- Remember to fetch this table in the employees table
+)
