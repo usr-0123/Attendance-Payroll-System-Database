@@ -25,7 +25,7 @@ import {
     deleteAttendanceService
 } from "../services/attendanceServices.js";
 
-import {attendanceValidator} from "../validators/attendanceValidators.js";
+import {attendanceValidator, updateEntryValidator} from "../validators/attendanceValidators.js";
 
 // Add a new attendance
 export const addAttendanceController = async (req, res) => {
@@ -98,23 +98,24 @@ export const getAttendanceByIDController = async (req, res) => {
 export const updateAttendanceController = async (req, res) => {
     try {
         const { AttendanceID } = req.params;
-        const { EmployeeID,Date,TimeIn,TimeOut } = req.body;
-        const { error } = attendanceValidator({AttendanceID,EmployeeID,Date,TimeIn,TimeOut});
-            if (error) {
-                return sendServerError(res, error.message);
-            }
+        const { EmployeeID, Date, CheckIn, CheckOut } = req.body;
+
+        const updateDetails = { EmployeeID, Date, CheckIn, CheckOut };
       
-        const response = await updateAttendanceService(AttendanceID, {AttendanceID,EmployeeID,Date,TimeIn,TimeOut});
-          // console.log(response);
-            if (response.rowsAffected == 1) {
-                return res.status(201).json({ message: "Attendance updated successfully" });
-          } else {
+        const response = await updateAttendanceService(updateDetails, AttendanceID);
+
+        // console.log(AttendanceID);
+
+        if (response.rowsAffected == 1) {
+            return res.status(201).json({ message: "Attendance updated successfully" });
+        } else {
             sendNotFound(res, "Attendance not found or not updated");
-          }
-        } catch (error) {
-          sendServerError(res, error.message);
         }
-      };
+    } catch (error) {
+        sendServerError(res, error.message);
+    }
+};
+
 
 // Delete an attendance
 export const deleteAttendanceController = async (req, res) => {

@@ -34,12 +34,12 @@ CREATE TABLE Attendance (
 -- Schedule table
 CREATE TABLE Schedule (
     ScheduleID VARCHAR(255) PRIMARY KEY,
+    EmployeeID VARCHAR(255),
 	ScheduleName VARCHAR(255),
     CheckIn DATETIME,
     CheckOut DATETIME,
-    DAYS VARCHAR(255)
-
-    -- EmployeeID
+    DAYS VARCHAR(255),
+    FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
 
 -- Overtime table
@@ -57,7 +57,7 @@ CREATE TABLE Advance (
     AdvanceID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),
     RequestDate DATETIME,
-    Ammount INT,
+    Amount INT,
     Approval_Status BIT DEFAULT 0,
     Approval_Date DATETIME,
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
@@ -67,10 +67,8 @@ CREATE TABLE Advance (
 CREATE TABLE Deductions (
     DeductionID VARCHAR(255) PRIMARY KEY,
     DeductionName VARCHAR(255),
-    DeuctionDescription VARCHAR(255),
+    DeductionDescription VARCHAR(255),
     Amount INT
-
-    -- EmployeeID
 )
 
 -- Department table
@@ -83,27 +81,13 @@ CREATE TABLE Departments (
 -- Positions table
 CREATE TABLE Positions (
     PositionID VARCHAR(255) PRIMARY KEY,
+    EmployeeID VARCHAR(255),
     Title VARCHAR(255),
     DepartmentID VARCHAR(255),
     Salary VARCHAR(255),
     FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID),
-
-    -- EmployeeID
+    FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
--- //////////////////////////////////////////////
-
-CREATE TABLE Positions (
-    PositionID VARCHAR(255) PRIMARY KEY,
-    EmployeeID VARCHAR(255) UNIQUE,
-    Title VARCHAR(255),
-    DepartmentID VARCHAR(255),
-    Salary VARCHAR(255),
-    FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID),
-    FOREIGN KEY (EmployeeID) REFERENCES Employees (EmployeeID)
-);
-
-
--- ///////////////////////////////////////////////
 
 -- Leave table
 CREATE TABLE Leave (
@@ -121,10 +105,12 @@ CREATE TABLE Payroll (
     PayrollID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),
     GrossPay INT,
-    Deductions INT,
+    DeductionID VARCHAR(255),
     NetPay INT,
     OvertimePay INT,
     Advance INT,
-    FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
+    FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID),
+    FOREIGN KEY (DeductionID) REFERENCES Deductions (DeductionID)
 )
+
 ```

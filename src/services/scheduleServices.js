@@ -9,12 +9,13 @@ export const addScheduleService = async (newSchedule) => {
     try {
         const addScheduleQuery =
             `
-            INSERT INTO Schedule (ScheduleID, ScheduleName, CheckIn, CheckOut, Days)
-            VALUES (@ScheduleID, @ScheduleName, @CheckIn, @CheckOut, @Days)
+            INSERT INTO Schedule (ScheduleID, EmployeeID, ScheduleName, CheckIn, CheckOut, Days)
+            VALUES (@ScheduleID, @EmployeeID, @ScheduleName, @CheckIn, @CheckOut, @Days)
             `;
 
         const result = await poolRequest()
             .input("ScheduleID", sql.VarChar, newSchedule.ScheduleID)
+            .input("EmployeeID", sql.VarChar, newSchedule.EmployeeID)
             .input("ScheduleName", sql.VarChar, newSchedule.ScheduleName)
             .input("CheckIn", sql.DateTime, newSchedule.CheckIn)
             .input("CheckOut", sql.DateTime, newSchedule.CheckOut)

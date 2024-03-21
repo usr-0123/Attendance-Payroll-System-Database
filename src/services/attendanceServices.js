@@ -65,23 +65,26 @@ export const getAttendanceByIDService = async (AttendanceID) => {
     }
 }
 
-export const updateAttendanceService = async () => {
-        try {
-          const response = await poolRequest(attendance)
-            .input("AttendanceID", sql.VarChar, AttendanceID)
-            .input("EmployeeID", sql.VarChar, attendance.EmployeeID)
-            .input("Date", sql.Date, Date.content)
-            .input("TimeIn", sql.DateTime, attendance.TimeIn)
-            .input("TimeOut", sql.DateTime, attendance.TimeOut)
-            .query(
-              `UPDATE Attendance SET (AttendanceID, EmployeeID, Date, TimeIn, TimeOut)
-              VALUES (@AttendanceID, @EmployeeID, @Date, @TimeIn, @TimeOut)`
-            );
-          return response;
-        } catch (error) {
-          return error;
-        }
-      };
+export const updateAttendanceService = async (attendance, AttendanceID) => {
+  try {
+      const response = await poolRequest()
+          .input("AttendanceID", sql.VarChar, AttendanceID)
+          .input("EmployeeID", sql.VarChar, attendance.EmployeeID)
+          .input("Date", sql.Date, attendance.Date)
+          .input("CheckIn", sql.DateTime, attendance.CheckIn)
+          .input("CheckOut", sql.DateTime, attendance.CheckOut)
+          .query(
+              `UPDATE Attendance SET EmployeeID = @EmployeeID, Date = @Date, CheckIn = @CheckIn, CheckOut = @CheckOut WHERE AttendanceID = @AttendanceID`
+          );
+
+          console.log(attendance.CheckOut);
+
+      return response;
+  } catch (error) {
+      return error;
+  }
+};
+
 
 export const deleteAttendanceService = async (AttendanceID) => {
     try {

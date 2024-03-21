@@ -14,17 +14,19 @@ Content-Type: application/json
 ###
 GET http://localhost:8200/api/attendance/all
 
+###
 GET http://localhost:8200/api/attendance/1
 
 # Update an attednance
+###
 PUT  http://localhost:8200/api/attendance/1
 Content-Type: application/json
+
 {
-    "AttendanceID":"1",
-    "EmployeeID": "EMP001",
+    "EmployeeID": "1",
     "Date": "2024-03-19",
-    "TimeIn": "2024-03-19 08:00:00",
-    "TimeOut": "2024-03-19 17:00:00"  
+    "CheckIn": "2021-03-19 03:00:00",
+    "CheckOut": "2024-03-19 17:00:01" 
 }
 
 # Delete an attednance

@@ -47,7 +47,7 @@ export const addAdvanceController = async (req, res) => {
             // Call service to add advance entry
             const response = await addAdvanceService(newAdvance);
 
-            // console.log(response);
+            console.log(response);
 
             if (response.message) {
                 sendServerError(res, response.message);

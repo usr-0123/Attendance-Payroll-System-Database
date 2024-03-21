@@ -6,9 +6,9 @@ Content-Type: application/json
 
 {
     "PayrollID": "PR006",
-    "EmployeeID": "EMP001",
+    "EmployeeID": "1",
     "GrossPay": 5000,
-    "Deductions": 1000,
+    "DeductionID": "417abe26-b47f-47ff-a3c4-7a820bf357a5",
     "NetPay": 4000,
     "OvertimePay": 200,
     "Advance": 1000
@@ -20,22 +20,24 @@ Content-Type: application/json
 GET http://localhost:8200/api/payroll/all
 
 ### Fetch an payroll by id
-GET http://localhost:8200/api/payroll/966281db-1c67-4581-afab-d1d840cd61c8
+GET http://localhost:8200/api/payroll/d546d419-0997-443b-ad13-2ab0f97c6b2f
 
 # UPDATE
 
 ### Update one payroll by id
-PUT http://localhost:8200/api/payroll/966281db-1c67-4581-afab-d1d840cd61c8
+PUT http://localhost:8200/api/payroll/d546d419-0997-443b-ad13-2ab0f97c6b2f
 Content-Type: application/json
 
 {
-    "EmployeeID":"EMP001",
-    "Overtime_date":"2024-03-15T18:00:00.000Z",
-    "Duration":"02:30:00",
-    "Rate":25
+    "EmployeeID": "1",
+    "GrossPay": 5000,
+    "DeductionID": "417abe26-b47f-47ff-a3c4-7a820bf357a5",
+    "NetPay": 4000,
+    "OvertimePay": 200,
+    "Advance": 1050
 }
 
 # DELETE
 
 ### Delete an instance of payroll
-DELETE http://localhost:8200/api/payroll/966281db-1c67-4581-afab-d1d840cd61c8
+DELETE http://localhost:8200/api/payroll/d546d419-0997-443b-ad13-2ab0f97c6b2f

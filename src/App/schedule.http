@@ -5,6 +5,7 @@ Content-Type: application/json
 
 {
     "ScheduleID":"10",
+    "EmployeeID":"1",
     "ScheduleName":"Night Shift",
     "CheckIn":"1900-01-01 08:00:00.000",
     "CheckOut":"1900-01-01 19:00:00.000",
@@ -20,7 +21,7 @@ GET  http://localhost:8200/api/schedule/1
 
 # UPDATE SCHEDULE
 ###
-PUT  http://localhost:8200/api/schedule/dd6842b0-6e96-44c3-a682-1dcdb287f652
+PUT  http://localhost:8200/api/schedule/1
 Content-Type: application/json
 
 {

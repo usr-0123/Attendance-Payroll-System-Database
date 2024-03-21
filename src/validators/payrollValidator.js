@@ -6,7 +6,7 @@ export const newPayrollValidator = (payroll) => {
         PayrollID: Joi.string().required(),
         EmployeeID: Joi.string().required(),
         GrossPay: Joi.number().integer().min(0).required(),
-        Deductions: Joi.number().integer().min(0).required(),
+        DeductionID: Joi.string().required(),
         NetPay: Joi.number().integer().min(0).required(),
         OvertimePay: Joi.number().integer().min(0).required(),
         Advance: Joi.number().integer().min(0).required()
@@ -20,7 +20,7 @@ export const updatePayrollValidator = (payroll) => {
     const updatePayrollValidatorSchema = Joi.object({
         EmployeeID: Joi.string(),
         GrossPay: Joi.number().integer().min(0),
-        Deductions: Joi.number().integer().min(0),
+        DeductionID: Joi.string(),
         NetPay: Joi.number().integer().min(0),
         OvertimePay: Joi.number().integer().min(0),
         Advance: Joi.number().integer().min(0)

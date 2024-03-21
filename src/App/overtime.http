@@ -6,7 +6,7 @@ Content-Type: application/json
 
 {
     "OvertimeID":"OT006",
-    "EmployeeID":"EMP001",
+    "EmployeeID":"1",
     "Overtime_date":"2024-03-15T18:00:00.000Z",
     "Duration":"02:30:00",
     "Rate":20
@@ -18,7 +18,7 @@ Content-Type: application/json
 GET http://localhost:8200/api/overtime/all
 
 ### Fetch an overtime by id
-GET http://localhost:8200/api/overtime/OT004
+GET http://localhost:8200/api/overtime/9e41536b-d183-4f7a-b7ff-e64413b5f446
 
 # UPDATE
 

@@ -29,10 +29,12 @@ import {
 
 // Add a new position entry
 export const addPositionController = async (req, res) => {
-    const { PositionID, Title, DepartmentID, Salary } = req.body;
+    const { PositionID, EmployeeID, Title, DepartmentID, Salary } = req.body;
 
     // Validate request body
-    const { error } = newPositionValidator({ PositionID, Title, DepartmentID, Salary });
+    const { error } = newPositionValidator({ EmployeeID, PositionID, Title, DepartmentID, Salary });
+
+    // console.log(error);
 
     if (error) {
         return sendBadRequest(res, error.message);
@@ -42,10 +44,14 @@ export const addPositionController = async (req, res) => {
             const generatedPositionID = v4();
 
             // Create new position object
-            const newPosition = { PositionID: generatedPositionID, Title, DepartmentID, Salary };
+            const newPosition = { PositionID: generatedPositionID, EmployeeID, Title, DepartmentID, Salary };
+
+            // console.log(newPosition);
 
             // Call service to add position entry
             const response = await addPositionService(newPosition);
+
+            // console.log(response);
 
             if (response.message) {
                 sendServerError(res, response.message);

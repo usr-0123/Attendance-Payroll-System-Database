@@ -33,16 +33,16 @@ import {
 // Add a new schedule
 export const addScheduleController = async (req, res) => {
 
-    const { ScheduleID, ScheduleName, CheckIn, CheckOut, Days } = req.body;
+    const { ScheduleID, EmployeeID, ScheduleName, CheckIn, CheckOut, Days } = req.body;
 
-    const { error } = scheduleValidator ({ ScheduleID, ScheduleName, CheckIn, CheckOut, Days })
+    const { error } = scheduleValidator ({EmployeeID, ScheduleID, ScheduleName, CheckIn, CheckOut, Days })
 
     if (error) {
         return sendServerError(res, error.message)
     } else {
         try {
             const ScheduleID = v4();
-            const newSchedule = { ScheduleID, ScheduleName, CheckIn, CheckOut, Days }
+            const newSchedule = { ScheduleID, EmployeeID, ScheduleName, CheckIn, CheckOut, Days }
             const response = await addScheduleService (newSchedule)
             if (response.message) {
                 // console.log(response);

@@ -6,8 +6,9 @@ Content-Type: application/json
 
 {
     "PositionID": "P2",
+    "EmployeeID":"1",
     "Title": "Software Engineer",
-    "DepartmentID": "D1",
+    "DepartmentID": "eaf74184-19ec-4788-a313-a80590bb8e56",
     "Salary": "100000"
 }
 

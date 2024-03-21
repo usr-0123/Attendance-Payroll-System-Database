@@ -3,7 +3,8 @@ import joi from "joi";
 export const scheduleValidator = (schedule) => {
     const scheduleValidatorSchema = joi.object({
         ScheduleID: joi.string().required(),
-        ScheduleID: joi.string().required(),ScheduleName: joi.string().required(),
+        EmployeeID: joi.string().required(),
+        ScheduleName: joi.string().required(),
         Days: joi.string().required(),
         CheckIn: joi.date().required(),
         CheckOut: joi.date().required(),

@@ -5,19 +5,21 @@ export const addPayrollService = async (newPayroll) => {
     try {
         const addPayrollQuery =
             `
-            INSERT INTO Payroll (PayrollID, EmployeeID, GrossPay, Deductions, NetPay, OvertimePay, Advance)
-            VALUES (@PayrollID, @EmployeeID, @GrossPay, @Deductions, @NetPay, @OvertimePay, @Advance)
+            INSERT INTO Payroll (PayrollID, EmployeeID, GrossPay, DeductionID, NetPay, OvertimePay, Advance)
+            VALUES (@PayrollID, @EmployeeID, @GrossPay, @DeductionID, @NetPay, @OvertimePay, @Advance)
             `;
 
         const result = await poolRequest()
             .input("PayrollID", sql.VarChar, newPayroll.PayrollID)
             .input("EmployeeID", sql.VarChar, newPayroll.EmployeeID)
             .input("GrossPay", sql.Int, newPayroll.GrossPay)
-            .input("Deductions", sql.Int, newPayroll.Deductions)
+            .input("DeductionID", sql.VarChar, newPayroll.DeductionID)
             .input("NetPay", sql.Int, newPayroll.NetPay)
             .input("OvertimePay", sql.Int, newPayroll.OvertimePay)
             .input("Advance", sql.Int, newPayroll.Advance)
             .query(addPayrollQuery);
+
+            // console.log(result);
 
         return result;
     } catch (error) {
@@ -60,7 +62,7 @@ export const updatePayrollService = async (updatedPayroll) => {
         const updatePayrollQuery =
             `
             UPDATE Payroll
-            SET EmployeeID = @EmployeeID, GrossPay = @GrossPay, Deductions = @Deductions, NetPay = @NetPay, OvertimePay = @OvertimePay, Advance = @Advance
+            SET EmployeeID = @EmployeeID, GrossPay = @GrossPay, DeductionID = @DeductionID, NetPay = @NetPay, OvertimePay = @OvertimePay, Advance = @Advance
             WHERE PayrollID = @PayrollID
             `;
 
@@ -68,7 +70,7 @@ export const updatePayrollService = async (updatedPayroll) => {
             .input("PayrollID", sql.VarChar, updatedPayroll.PayrollID)
             .input("EmployeeID", sql.VarChar, updatedPayroll.EmployeeID)
             .input("GrossPay", sql.Int, updatedPayroll.GrossPay)
-            .input("Deductions", sql.Int, updatedPayroll.Deductions)
+            .input("DeductionID", sql.VarChar, updatedPayroll.DeductionID)
             .input("NetPay", sql.Int, updatedPayroll.NetPay)
             .input("OvertimePay", sql.Int, updatedPayroll.OvertimePay)
             .input("Advance", sql.Int, updatedPayroll.Advance)

@@ -4,6 +4,7 @@ import Joi from "joi";
 export const newPositionValidator = (position) => {
     const newPositionValidatorSchema = Joi.object({
         PositionID: Joi.string().required(),
+        EmployeeID: Joi.string().required(),
         Title: Joi.string().required(),
         DepartmentID: Joi.string().required(),
         Salary: Joi.string().required()

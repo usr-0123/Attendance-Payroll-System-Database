@@ -6,12 +6,13 @@ export const addPositionService = async (newPosition) => {
     try {
         const addPositionQuery =
             `
-            INSERT INTO Positions (PositionID, Title, DepartmentID, Salary)
-            VALUES (@PositionID, @Title, @DepartmentID, @Salary)
+            INSERT INTO Positions (PositionID, EmployeeID, Title, DepartmentID, Salary)
+            VALUES (@PositionID,@EmployeeID, @Title, @DepartmentID, @Salary)
             `;
 
         const result = await poolRequest()
             .input("PositionID", sql.VarChar, newPosition.PositionID)
+            .input("EmployeeID", sql.VarChar, newPosition.EmployeeID)
             .input("Title", sql.VarChar, newPosition.Title)
             .input("DepartmentID", sql.VarChar, newPosition.DepartmentID)
             .input("Salary", sql.VarChar, newPosition.Salary)

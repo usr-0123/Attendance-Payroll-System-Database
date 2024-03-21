@@ -29,11 +29,12 @@ import {
 
 // Add a new payroll entry
 export const addPayrollController = async (req, res) => {
-    const {PayrollID, EmployeeID, GrossPay, Deductions, NetPay, OvertimePay, Advance } = req.body;
+    const {PayrollID, EmployeeID, GrossPay, DeductionID, NetPay, OvertimePay, Advance } = req.body;
 
     // Validate request body
-    const { error } = newPayrollValidator({ PayrollID, EmployeeID, GrossPay, Deductions, NetPay, OvertimePay, Advance });
+    const { error } = newPayrollValidator({ PayrollID, EmployeeID, GrossPay, DeductionID, NetPay, OvertimePay, Advance });
 
+    // console.log(error);
     if (error) {
         return sendServerError(res, error.message);
     } else {
@@ -42,10 +43,12 @@ export const addPayrollController = async (req, res) => {
             const generatedPayrollID = v4();
 
             // Create new payroll object
-            const newPayroll = { PayrollID: generatedPayrollID, EmployeeID, GrossPay, Deductions, NetPay, OvertimePay, Advance };
+            const newPayroll = { PayrollID: generatedPayrollID, EmployeeID, GrossPay, DeductionID, NetPay, OvertimePay, Advance };
 
             // Call service to add payroll entry
             const response = await addPayrollService(newPayroll);
+
+            // console.log(response);
 
             if (response.message) {
                 sendServerError(res, response.message);
@@ -85,9 +88,9 @@ export const fetchPayrollByIdController = async (req, res) => {
 // Update an existing payroll entry by PayrollID
 export const updatePayrollController = async (req, res) => {
     const { PayrollID } = req.params;
-    const { EmployeeID, GrossPay, Deductions, NetPay, OvertimePay, Advance } = req.body;
+    const { EmployeeID, GrossPay, DeductionID, NetPay, OvertimePay, Advance } = req.body;
 
-    const updatedPayroll = { EmployeeID, GrossPay, Deductions, NetPay, OvertimePay, Advance };
+    const updatedPayroll = { EmployeeID, GrossPay, DeductionID, NetPay, OvertimePay, Advance };
 
     // Validate request body
     const { error } = updatePayrollValidator(updatedPayroll);

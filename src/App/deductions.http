@@ -15,11 +15,11 @@ Content-Type: application/json
 GET http://localhost:8200/api/deduction/all
 
 ### Fetch one deduction entry
-GET http://localhost:8200/api/deduction/D1
+GET http://localhost:8200/api/deduction/592cbc9d-9cb8-4df6-aaab-d3f402ec613c
 
 # UPDATE
 ### Update deduction entry
-PUT http://localhost:8200/api/deduction/D1
+PUT http://localhost:8200/api/deduction/592cbc9d-9cb8-4df6-aaab-d3f402ec613c
 Content-Type: application/json
 
 {
@@ -30,4 +30,4 @@ Content-Type: application/json
 
 # DELETE
 ### Delete an entry of deduction
-DELETE http://localhost:8200/api/deduction/D1
+DELETE http://localhost:8200/api/deduction/592cbc9d-9cb8-4df6-aaab-d3f402ec613c
