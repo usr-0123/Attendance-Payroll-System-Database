@@ -12,6 +12,7 @@ import deductionRouter from './src/routes/deductionsRoutes.js'
 import departmentRouter from './src/routes/departmentRoutes.js'
 import positionRoutes from './src/routes/positionsRoutes.js'
 import leaveRouter from './src/routes/leaveRoutes.js'
+import payrollRoutes from './src/routes/payrollRoutes.js'
 
 dotenv.config()
 
@@ -36,6 +37,7 @@ app.use('/api', deductionRouter)
 app.use('/api', departmentRouter)
 app.use('/api', positionRoutes)
 app.use('/api', leaveRouter)
+app.use('/api', payrollRoutes)
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`);

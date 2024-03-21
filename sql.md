@@ -97,3 +97,16 @@ CREATE TABLE Leave (
     DaysCount INT,
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
+
+-- Payroll table
+CREATE TABLE Payroll (
+    PayrollID VARCHAR(255) PRIMARY KEY,
+    EmployeeID VARCHAR(255),
+    GrossPay INT,
+    Deductions INT,
+    NetPay INT,
+    OvertimePay INT,
+    Advance INT,
+    FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
+)
+```
