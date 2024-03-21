@@ -8,11 +8,11 @@ Content-Type: application/json
     "First_name":"Lewis Kipngetich",
     "Last_name":"Kemboi",
     "Email_address":"kemboilewis@example.com",
-    "Password":"12345678",
+    "Password":"@Usr0123!",
     "Contact_information":"0701282658",
     "Gender":"Male",
     "Admin_role":"Admin",
-    "Date_of_Birth":"07/07/1997",
+    "Date_of_Birth":"1997-07-07",
     "Country":"Kenya",
     "City":"Nyeri",
     "Street":"3948 NYR str",
@@ -27,7 +27,7 @@ Content-Type:  application/json
 
 {
     "Email_address":"kemboilewis@example.com",
-    "Password":"12345678"
+    "Password":"@Usr0123!"
 }
 
 # Fetching all the employees

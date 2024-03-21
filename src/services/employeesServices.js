@@ -1,61 +1,42 @@
 import { poolRequest, sql } from "../utilis/dbConnect.js";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import jwt  from 'jsonwebtoken';
+import bcrypt from "bcrypt";
 
 dotenv.config();
 
-// Register new employee service
+// Create a new employee entry
 export const addEmployeeService = async (newEmployee) => {
     try {
-        
-        // check if the employee exists in the database to prevent duplicates
-        const checkEmployeeQuery = 
-        `
-        SELECT COUNT(*) AS Count
-        FROM employees
-        WHERE Email_address = @Email_address
-        `
-
-        const checkEmployeeResult = await poolRequest()
-        .input('Email_address', sql.VarChar, newEmployee.Email_address)
-        .query(checkEmployeeQuery)
-
-        if (checkEmployeeResult.recordset[0].count > 0) {
-            throw new Error('There is an employee with the Email address already existing')
-        }
-
-        // if the details are unique, proceed with the registration
-        const insertEmployeeQuerry =
-        `
-        INSERT INTO employees (EmployeeID, First_name, Last_name, Email_address, Password, Contact_information, Gender, Admin_role, Date_of_Birth, Country, City, Street, Postal_code, Profile_url)
-        VALUES (@EmployeeID, @First_name, @Last_name, @Email_address, @Password, @Contact_information, @Gender, @Admin_role, @Date_of_Birth, @Country, @City, @Street, @Postal_code, @Profile_url)
-        `
-
+        // Insert new employee data
+        const addEmployeeQuery = `
+            INSERT INTO employees (EmployeeID, First_name, Last_name, Email_address, Password, Contact_information, Gender, Admin_role, Date_of_Birth, Country, City, Street, Postal_code, Profile_url)
+            VALUES (@EmployeeID, @First_name, @Last_name, @Email_address, @Password, @Contact_information, @Gender, @Admin_role, @Date_of_Birth, @Country, @City, @Street, @Postal_code, @Profile_url)
+        `;
         const result = await poolRequest()
-        .input("EmployeeID", sql.VarChar, newEmployee.EmployeeID)
-        .input("First_name", sql.VarChar, newEmployee.First_name)
-        .input("Last_name", sql.VarChar, newEmployee.Last_name)
-        .input("Email_address", sql.VarChar, newEmployee.Email_address)
-        .input("Password", sql.VarChar, newEmployee.Password)
-        .input("Contact_information", sql.VarChar, newEmployee.Contact_information)
-        .input("Gender", sql.VarChar, newEmployee.Gender)
-        .input("Admin_role", sql.VarChar, newEmployee.Admin_role)
-        .input("Date_of_Birth", sql.VarChar, newEmployee.Date_of_Birth)
-        .input("Country", sql.VarChar, newEmployee.Country)
-        .input("City", sql.VarChar, newEmployee.City)
-        .input("Street", sql.VarChar, newEmployee.Street)
-        .input("Postal_code", sql.VarChar, newEmployee.Postal_code)
-        .input("Profile_url", sql.VarChar, newEmployee.Profile_url)
-        .query(insertEmployeeQuerry)
+            .input("EmployeeID", sql.VarChar, newEmployee.EmployeeID)
+            .input("First_name", sql.VarChar, newEmployee.First_name)
+            .input("Last_name", sql.VarChar, newEmployee.Last_name)
+            .input("Email_address", sql.VarChar, newEmployee.Email_address)
+            .input("Password", sql.VarChar, newEmployee.Password)
+            .input("Contact_information", sql.VarChar, newEmployee.Contact_information)
+            .input("Gender", sql.VarChar, newEmployee.Gender)
+            .input("Admin_role", sql.VarChar, newEmployee.Admin_role)
+            .input("Date_of_Birth", sql.Date, newEmployee.Date_of_Birth)
+            .input("Country", sql.VarChar, newEmployee.Country)
+            .input("City", sql.VarChar, newEmployee.City)
+            .input("Street", sql.VarChar, newEmployee.Street)
+            .input("Postal_code", sql.VarChar, newEmployee.Postal_code)
+            .input("Profile_url", sql.VarChar, newEmployee.Profile_url)
+            .query(addEmployeeQuery);
+
+            console.log("result", result);
 
         return result;
-
     } catch (error) {
-        return error
-        
+        return error.message;
     }
-}
+};
 
 // Log in employee
 export const authenticateloginEmployeeService = async (employee) => {
@@ -63,9 +44,6 @@ export const authenticateloginEmployeeService = async (employee) => {
     const employeeFoundResponse = await poolRequest()
       .input("Email_address", sql.VarChar, employee.Email_address)
       .query("SELECT * FROM employee WHERE Email_address=@Email_address");
-
-      
-    //   console.log("found employee", employeeFoundResponse);
 
     if (employeeFoundResponse.recordset.length = 1) {
         // console.log(employeeFoundResponse);
@@ -80,6 +58,7 @@ export const authenticateloginEmployeeService = async (employee) => {
         }, process.env.JWT_SECRET, { expiresIn: "24h" });
 
         console.log("Token is", token);
+
         const { Password, ...employeeData } = employeeFoundResponse.recordset[0];
         return { employee: employeeData, token: `JWT ${token}` };
       } else {
@@ -94,6 +73,36 @@ export const authenticateloginEmployeeService = async (employee) => {
   }
 };
 
+// Login employee
+export const findByCredentialsService = async (employee) => {
+  try {
+      const employeeFoundResponse = await poolRequest()
+          .input("Email_address", sql.VarChar, employee.Email_address)
+          .query("SELECT * FROM employees WHERE Email_address=@Email_address");
+
+      if (employeeFoundResponse.recordset[0]) {
+          const storedPassword = employeeFoundResponse.recordset[0].Password;
+          const isPasswordValid = await bcrypt.compare(employee.Password, storedPassword);
+
+          if (isPasswordValid) {
+              const token = jwt.sign({
+                  EmployeeID: employeeFoundResponse.recordset[0].EmployeeID,
+                  Email_address: employeeFoundResponse.recordset[0].Email_address
+              }, process.env.JWT_SECRET, { expiresIn: "24h" });
+
+              const { Password, Admin_role, ...employeeData } = employeeFoundResponse.recordset[0];
+
+              return { employee: employeeData, Admin_role: Admin_role, token: `JWT ${token}` };
+          } else {
+              return { error: 'Invalid Credentials' };
+          }
+      } else {
+          return { error: 'Invalid Credentials' };
+      }
+  } catch (error) {
+      return error.message;
+  }
+};
 
 // Fetch employees service
 export const getAllEmployeeService = async () => {

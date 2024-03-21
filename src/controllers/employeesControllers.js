@@ -21,6 +21,7 @@ import {
 // import services
 import {
     addEmployeeService,
+    findByCredentialsService,
     getAllEmployeeService,
     getEmployeeByEmailService,
     deleteEmployeeServices,
@@ -39,13 +40,25 @@ export const registerNewEmployeeController = async (req, res) => {
         const {First_name,Last_name,Email_address,Password,Contact_information,Gender,Admin_role,Date_of_Birth,Country,City,Street,Postal_code,Profile_url} = req.body;
         // console.log(req.body);
 
+        const { error } = employeeValidator({First_name,Last_name,Email_address,Password,Contact_information,Gender,Admin_role,Date_of_Birth,Country,City,Street,Postal_code,Profile_url})
+
+        if (error) {
+          return sendServerError(res, error.message)
+        } else {
+
         const existingEmployee = await getEmployeeByEmailService(Email_address)
 
-        console.log('Existing employee', existingEmployee);
+        // console.log('Existing employee', existingEmployee);
 
-        if (existingEmployee == [1]) {
-            return res.status(400).send({message: 'Controller says: Employee with the provided email already existing'})
-        } else {
+        ///////////////////////////////////////////////
+
+        if (existingEmployee === 1) {
+
+          console.log("existingEmployee.rowsAffected == [1]");
+
+            return res.status(400).send({message: 'Employee with the provided email already existing'})
+
+        } else if (existingEmployee == 0 ) {
             const EmployeeID = v4();
             const hashedPassword = await bcrypt.hash(Password, 8);
 
@@ -65,7 +78,6 @@ export const registerNewEmployeeController = async (req, res) => {
                 Postal_code,
                 Profile_url
             }
-            // console.log("created employee", registerEmployee);
 
             const result = await addEmployeeService(registerEmployee)
 
@@ -75,43 +87,38 @@ export const registerNewEmployeeController = async (req, res) => {
                 sendCreated(res, 'Employee created successfully');
             }
         }
+      }
 
     } catch (error) {
+      console.log("error.message",error.message);
         sendServerError(res, error.message)
     }
 }
 
 // Login employee
-export const loginEmployeeController=async(req,res)=>{
-    try {
-        // console.log("I am reached here at the try section");
+export const loginEmployeeController = async (req, res) => {
+  try {
+    const { Email_address, Password } = req.body;
 
-      const { Email_address, Password } = req.body;
-
-        const { error } = employeeLoginValidator(req.body);
-      if (error) {
-        return res.status(400).json({ error: error.details[0].message });
-      }
-      const employee = await getEmployeeByEmailService(Email_address);
-      console.log("employee", employee);
-      if (!employee) {
-        return sendNotFound(res, "Employee not found");
-      }else{
-        // console.log("I am reached at the else");
-
-      const loggedInmployee = await authenticateloginEmployeeService({ Email_address, Password });
-      console.log("Logged in", loggedInmployee);
-
-      // Successful login
-      res.status(200).json({ employee ,message:"Logged In successfully!" });
-      }
-    } catch (error) {
-        
-    // console.log("Clg",error.message);
-
-      return sendServerError(res, error.message );
+    const { error } = employeeLoginValidator(req.body);
+    if (error) {
+      return sendBadRequest(res, error.details[0].message);
     }
-}
+    // Check if the user exists
+    const employee = await getEmployeeByEmailService(Email_address);
+    // console.log("employee", employee);
+    if (!employee) {
+      return sendNotFound(res, "User not found");
+    } else {
+      const loggedInUser = await findByCredentialsService({ Email_address, Password });
+      // console.log("logged in", loggedInUser);
+
+      res.json({ message: "Logged in successfully", loggedInUser });
+    }
+  } catch (error) {
+    sendServerError(res, error.message);
+  }
+};
 
 // Get all employees
 export const getAllEmployeesController = async (req, res) => {

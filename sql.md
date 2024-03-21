@@ -38,6 +38,8 @@ CREATE TABLE Schedule (
     CheckIn DATETIME,
     CheckOut DATETIME,
     DAYS VARCHAR(255)
+
+    -- EmployeeID
 )
 
 -- Overtime table
@@ -67,6 +69,8 @@ CREATE TABLE Deductions (
     DeductionName VARCHAR(255),
     DeuctionDescription VARCHAR(255),
     Amount INT
+
+    -- EmployeeID
 )
 
 -- Department table
@@ -82,10 +86,24 @@ CREATE TABLE Positions (
     Title VARCHAR(255),
     DepartmentID VARCHAR(255),
     Salary VARCHAR(255),
-    FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID)
+    FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID),
 
-    -- Remember to fetch this table in the employees table
+    -- EmployeeID
 )
+-- //////////////////////////////////////////////
+
+CREATE TABLE Positions (
+    PositionID VARCHAR(255) PRIMARY KEY,
+    EmployeeID VARCHAR(255) UNIQUE,
+    Title VARCHAR(255),
+    DepartmentID VARCHAR(255),
+    Salary VARCHAR(255),
+    FOREIGN KEY (DepartmentID) REFERENCES Departments (DepartmentID),
+    FOREIGN KEY (EmployeeID) REFERENCES Employees (EmployeeID)
+);
+
+
+-- ///////////////////////////////////////////////
 
 -- Leave table
 CREATE TABLE Leave (
