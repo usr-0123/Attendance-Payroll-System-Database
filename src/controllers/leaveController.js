@@ -1,4 +1,3 @@
-import { v4 } from "uuid";
 import {
     successMessage,
     sendDeleteSuccess,
@@ -14,6 +13,7 @@ import {
 } from "../helpers/helperFunctions.js";
 
 import {
+    // countLeaveEntriesService, // Import the new service function
     addLeaveValidator,
     updateLeaveValidator
 } from "../validators/leavesValidator.js";
@@ -23,6 +23,7 @@ import {
     fetchAllLeaveService,
     fetchLeaveByIdService,
     updateLeaveService,
+    countLeaveEntriesService,
     deleteLeaveService
 } from "../services/leavesService.js";
 
@@ -70,7 +71,7 @@ export const fetchLeaveByIdController = async (req, res) => {
     try {
         const leaveEntry = await fetchLeaveByIdService(LeaveID);
         if (!leaveEntry) {
-            return sendNotFound(res, "Leave entry not found");
+            return sendNotFound(res, "Fetch leaves service  says: Leave entry not found");
         }
         res.json(leaveEntry);
     } catch (error) {
@@ -94,7 +95,7 @@ export const updateLeaveController = async (req, res) => {
         // Update the leave entry
         const response = await updateLeaveService({ LeaveID, EmployeeID, BeginDate, EndDate, Reason, DaysCount });
         if (response.message) {
-            return sendNotFound(res, "Leave entry not found");
+            return sendNotFound(res, "Update leave service says: Leave entry not found");
         }
         successMessage(res, "Leave entry updated successfully");
     } catch (error) {
@@ -112,6 +113,16 @@ export const deleteLeaveController = async (req, res) => {
             return sendNotFound(res, "Leave entry not found");
         }
         sendDeleteSuccess(res, "Leave entry deleted successfully");
+    } catch (error) {
+        sendServerError(res, error.message);
+    }
+};
+
+// Controller to count leave entries
+export const countLeaveEntriesController = async (req, res) => {
+    try {
+        const leaveCount = await countLeaveEntriesService();
+        res.json({ leaveCount });
     } catch (error) {
         sendServerError(res, error.message);
     }

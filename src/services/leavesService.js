@@ -41,6 +41,27 @@ export const fetchAllLeaveService = async () => {
     }
 };
 
+// Service function to count the number of leave entries
+export const countLeaveEntriesService = async () => {
+    try {
+        // SQL query to count the number of leave entries
+        const query = `
+            SELECT COUNT(*) AS LeaveCount
+            FROM Leave;
+        `;
+
+        // Execute the query
+        const result = await poolRequest().query(query);
+
+        // Extract and return the leave count from the query result
+        return result.recordset[0].LeaveCount;
+    } catch (error) {
+        // Return any error that occurs during execution
+        return { error: "Error counting leave entries" };
+    }
+};
+
+
 // Fetch one leave entry by LeaveID
 export const fetchLeaveByIdService = async (LeaveID) => {
     try {

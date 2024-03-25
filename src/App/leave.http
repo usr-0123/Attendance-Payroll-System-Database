@@ -18,6 +18,9 @@ Content-Type: application/json
 ### Fetch all the leave available 
 GET http://localhost:8200/api/leave/all
 
+### countLeaveEntriesController
+GET http://localhost:8200/api/leave/count/entries
+
 ### Fetch an leave by id
 GET http://localhost:8200/api/leave/4e6b8404-d530-4a3b-9548-84aab2bed3ab
 

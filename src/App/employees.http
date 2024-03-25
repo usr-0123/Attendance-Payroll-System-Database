@@ -36,6 +36,12 @@ GET http://localhost:8200/api/employee/fetchall
 ### /employee/fetchall/details
 GET http://localhost:8200/api/employee/fetchall/details
 
+### /employee/leave/position/department
+GET http://localhost:8200/api/employee/leave/position/department
+
+### /employee/count
+GET http://localhost:8200/api/employee/count
+
 # Fetching one employee by passing the employeeID
 ###
 GET http://localhost:8200/api/employee/fetchByEmail/kemboilewis@example.com

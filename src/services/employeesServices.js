@@ -145,6 +145,45 @@ export const getAllEmployeeDetails = async () => {
     }
 };
 
+// Service function to fetch employee details including leave, departments and position information
+export const getAttendanceEmployeeDetailsService = async () => {
+    try {
+        const query = `
+            SELECT 
+                emp.First_name,
+                emp.Last_name,
+                emp.Email_address,
+                emp.Admin_role,
+                pos.Title AS PositionTitle,
+                dep.DepartmentName,
+                att.CheckIn,
+                att.CheckOut
+            FROM 
+                employees emp
+            LEFT JOIN 
+                Positions pos ON emp.EmployeeID = pos.EmployeeID
+            LEFT JOIN 
+                Departments dep ON pos.DepartmentID = dep.DepartmentID
+            LEFT JOIN 
+                Attendance att ON emp.EmployeeID = att.EmployeeID;
+        `;
+        const result = await poolRequest().query(query);
+        return result.recordset;
+    } catch (error) {
+        return { error: "Error fetching employee details" };
+    }
+};
+
+// Count the number of employee entries
+export const countEmployeesService = async () => {
+    try {
+        const query = `SELECT COUNT(*) AS EmployeeCount FROM employees`;
+        const result = await poolRequest().query(query);
+        return result.recordset[0].EmployeeCount;
+    } catch (error) {
+        return { error: "Error counting employees" };
+    }
+};
 
 // Fetch employees service
 export const getAllEmployeeService = async () => {
