@@ -104,6 +104,48 @@ export const findByCredentialsService = async (employee) => {
   }
 };
 
+// Fetch all employee details including leave and position information
+export const getAllEmployeeDetails = async () => {
+    try {
+        const query = `
+            SELECT 
+                e.EmployeeID,
+                e.First_name,
+                e.Last_name,
+                e.Email_address,
+                e.Contact_information,
+                e.Gender,
+                e.Admin_role,
+                e.Date_of_Birth,
+                e.Country,
+                e.City,
+                e.Street,
+                e.Postal_code,
+                e.Profile_url,
+                l.LeaveID,
+                l.BeginDate,
+                l.EndDate,
+                l.Reason,
+                l.DaysCount,
+                p.PositionID,
+                p.Title,
+                p.DepartmentID,
+                p.Salary
+            FROM 
+                employees e
+            LEFT JOIN 
+                Leave l ON e.EmployeeID = l.EmployeeID
+            LEFT JOIN 
+                Positions p ON e.EmployeeID = p.EmployeeID;
+        `;
+        const result = await poolRequest().query(query);
+        return result.recordset;
+    } catch (error) {
+        return { error: "Error fetching employee details" };
+    }
+};
+
+
 // Fetch employees service
 export const getAllEmployeeService = async () => {
     try {

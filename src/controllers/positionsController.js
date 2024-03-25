@@ -29,10 +29,10 @@ import {
 
 // Add a new position entry
 export const addPositionController = async (req, res) => {
-    const { PositionID, EmployeeID, Title, DepartmentID, Salary } = req.body;
+    const { EmployeeID, Title, DepartmentID, Salary } = req.body;
 
     // Validate request body
-    const { error } = newPositionValidator({ EmployeeID, PositionID, Title, DepartmentID, Salary });
+    const { error } = newPositionValidator({ EmployeeID, Title, DepartmentID, Salary });
 
     // console.log(error);
 

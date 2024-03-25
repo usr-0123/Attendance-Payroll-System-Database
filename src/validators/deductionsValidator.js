@@ -3,7 +3,6 @@ import Joi from "joi";
 // Validator for new deduction entry
 export const newDeductionValidator = (deduction) => {
     const newDeductionValidatorSchema = Joi.object({
-        DeductionID: Joi.string().required(),
         DeductionName: Joi.string().required(),
         DeductionDescription: Joi.string().required(),
         Amount: Joi.number().integer().required()

@@ -25,6 +25,7 @@ import {
     getAllEmployeeService,
     getEmployeeByEmailService,
     deleteEmployeeServices,
+    getAllEmployeeDetails,
     authenticateloginEmployeeService
 } from '../services/employeesServices.js'
 
@@ -119,6 +120,20 @@ export const loginEmployeeController = async (req, res) => {
     sendServerError(res, error.message);
   }
 };
+
+// Get all employee details including leave and position information
+export const getAllEmployeeDetailsController = async (req, res) => {
+    try {
+        const employeeDetails = await getAllEmployeeDetails();
+        return res.status(200).json(employeeDetails);
+    } catch (error) {
+        console.error("Error fetching all employee details", error);
+        return res.status(500).json("Internal server error");
+    }
+}
+
+// Other controller functions...
+
 
 // Get all employees
 export const getAllEmployeesController = async (req, res) => {

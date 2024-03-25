@@ -3,7 +3,7 @@
 ## ALL THE USERS TABLE
 
 ```sql
--- Employees table
+-- Employees table (Both)
 CREATE TABLE employees(
     EmployeeID VARCHAR(255) PRIMARY KEY,
     First_name VARCHAR(255),
@@ -21,7 +21,7 @@ CREATE TABLE employees(
     Profile_url VARCHAR(999)
 );
 
--- Attendance table
+-- Attendance table (Employee) (Fetch from admin)
 CREATE TABLE Attendance (
     AttendanceID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),
@@ -31,7 +31,7 @@ CREATE TABLE Attendance (
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 );
 
--- Schedule table
+-- Schedule table (employee)
 CREATE TABLE Schedule (
     ScheduleID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),
@@ -42,7 +42,7 @@ CREATE TABLE Schedule (
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
 
--- Overtime table
+-- Overtime table (employee)
 CREATE TABLE Overtime (
     OvertimeID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),
@@ -52,7 +52,7 @@ CREATE TABLE Overtime (
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
 
--- Advance cash table
+-- Advance cash table (employee) Finances
 CREATE TABLE Advance (
     AdvanceID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),
@@ -63,7 +63,7 @@ CREATE TABLE Advance (
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
 
--- Deductions table
+-- Deductions table (Admin) Finances
 CREATE TABLE Deductions (
     DeductionID VARCHAR(255) PRIMARY KEY,
     DeductionName VARCHAR(255),
@@ -71,14 +71,14 @@ CREATE TABLE Deductions (
     Amount INT
 )
 
--- Department table
+-- Department table (Admin) done
 CREATE TABLE Departments (
     DepartmentID VARCHAR(255) PRIMARY KEY,
     DepartmentName VARCHAR(255),
     MaximumOvertime VARCHAR(255),
 )
 
--- Positions table
+-- Positions table (Admin) done
 CREATE TABLE Positions (
     PositionID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),
@@ -89,7 +89,7 @@ CREATE TABLE Positions (
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
 
--- Leave table
+-- Leave table (employee)
 CREATE TABLE Leave (
     LeaveID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),
@@ -100,7 +100,7 @@ CREATE TABLE Leave (
     FOREIGN KEY (EmployeeID) REFERENCES employees (EmployeeID)
 )
 
--- Payroll table
+-- Payroll table (admin) Finances
 CREATE TABLE Payroll (
     PayrollID VARCHAR(255) PRIMARY KEY,
     EmployeeID VARCHAR(255),

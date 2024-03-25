@@ -3,7 +3,6 @@ import Joi from "joi";
 // Validator for new position entry
 export const newPositionValidator = (position) => {
     const newPositionValidatorSchema = Joi.object({
-        PositionID: Joi.string().required(),
         EmployeeID: Joi.string().required(),
         Title: Joi.string().required(),
         DepartmentID: Joi.string().required(),

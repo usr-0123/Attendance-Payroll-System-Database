@@ -29,12 +29,12 @@ import {
 
 // Add a new department entry
 export const addDepartmentController = async (req, res) => {
-    const { DepartmentID, DepartmentName, MaximumOvertime } = req.body;
+    const { DepartmentName, MaximumOvertime } = req.body;
 
     // console.log("req.body", req.body);
 
     // Validate request body
-    const { error } = newDepartmentValidator({ DepartmentID, DepartmentName, MaximumOvertime });
+    const { error } = newDepartmentValidator({ DepartmentName, MaximumOvertime });
 
     // console.log("error", error);
 

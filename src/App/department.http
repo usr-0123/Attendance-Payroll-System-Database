@@ -5,8 +5,7 @@ POST http://localhost:8200/api/department
 Content-Type: application/json
 
 {
-    "DepartmentID": "D6",
-    "DepartmentName": "It",
+    "DepartmentName": "Salary",
     "MaximumOvertime": "08:00:00"
 }
 

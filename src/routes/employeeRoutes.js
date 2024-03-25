@@ -7,7 +7,8 @@ import {
     getAllEmployeesController,
     getEmployeeByEmailController,
     deleteEmployeeController,
-    loginEmployeeController
+    loginEmployeeController,
+    getAllEmployeeDetailsController
 } from '../controllers/employeesControllers.js'
 
 const employeeRouter = Router();
@@ -17,5 +18,6 @@ employeeRouter.get('/employee/fetchall', getAllEmployeesController)
 employeeRouter.get('/employee/fetchByEmail/:Email_address', getEmployeeByEmailController)
 employeeRouter.delete('/employee/deleteByEmail/:Email_address', deleteEmployeeController)
 employeeRouter.post('/employee/loginEmployee', loginEmployeeController)
+employeeRouter.get('/employee/fetchall/details' ,getAllEmployeeDetailsController)
 
 export default employeeRouter;

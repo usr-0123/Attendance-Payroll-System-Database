@@ -29,12 +29,12 @@ import {
 
 // Add a new deduction entry
 export const addDeductionController = async (req, res) => {
-    const { DeductionID, DeductionName, DeductionDescription, Amount } = req.body;
+    const { DeductionName, DeductionDescription, Amount } = req.body;
 
     // console.log("Req.body",req.body);
 
     // Validate request body
-    const { error } = newDeductionValidator({ DeductionID, DeductionName, DeductionDescription, Amount });
+    const { error } = newDeductionValidator({ DeductionName, DeductionDescription, Amount });
 
     // console.log("error", error);
 

@@ -5,8 +5,7 @@ POST http://localhost:8200/api/position
 Content-Type: application/json
 
 {
-    "PositionID": "P2",
-    "EmployeeID":"1",
+    "EmployeeID":"2",
     "Title": "Software Engineer",
     "DepartmentID": "eaf74184-19ec-4788-a313-a80590bb8e56",
     "Salary": "100000"
