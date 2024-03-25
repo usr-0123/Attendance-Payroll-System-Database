@@ -19,6 +19,7 @@ import {
 
 import {
     addScheduleService,
+    getAllEmployeesWithSchedulesService,
     getAllScheduleService,
     getScheduleByScheduleIDService,
     updateScheduleService,
@@ -33,19 +34,18 @@ import {
 // Add a new schedule
 export const addScheduleController = async (req, res) => {
 
-    const { ScheduleID, EmployeeID, ScheduleName, CheckIn, CheckOut, Days } = req.body;
+    const { EmailAddress, EmployeeID, ScheduleName, CheckIn, CheckOut, Days } = req.body;
 
-    const { error } = scheduleValidator ({EmployeeID, ScheduleID, ScheduleName, CheckIn, CheckOut, Days })
+    const { error } = scheduleValidator ({EmailAddress, ScheduleName, CheckIn, CheckOut, Days })
 
     if (error) {
         return sendServerError(res, error.message)
     } else {
         try {
             const ScheduleID = v4();
-            const newSchedule = { ScheduleID, EmployeeID, ScheduleName, CheckIn, CheckOut, Days }
+            const newSchedule = { ScheduleID, EmailAddress, ScheduleName, CheckIn, CheckOut, Days }
             const response = await addScheduleService (newSchedule)
             if (response.message) {
-                // console.log(response);
                 sendServerError(res, response.message)
             } else {
                 sendCreated(res, "Schedule created successfully")
@@ -55,6 +55,21 @@ export const addScheduleController = async (req, res) => {
         }
     }
 }
+
+// Fetch all employees with schedules
+export const getAllEmployeesWithSchedulesController = async (req, res) => {
+    try {
+        const employeesWithSchedules = await getAllEmployeesWithSchedulesService();
+        if (employeesWithSchedules.length !== 0) {
+            return res.status(200).json(employeesWithSchedules);
+        } else {
+            sendNotFound(res, 'No employees with schedules found');
+        }
+    } catch (error) {
+        sendServerError(res, error.message);
+    }
+};
+
 
 // Fetch all schedule
 export const getScheduleController = async (req, res) => {
@@ -112,10 +127,13 @@ export const deleteScheduleController = async (req, res) => {
     try {
         const { ScheduleID } = req.params;
         const response = await deleteScheduleService(ScheduleID);
+        
         if (response.rowsAffected == 1) {
-            sendDeleteSuccess(res, `Schedule deleted successfully`)
+            console.log(res.message);
+            sendDeleteSuccess(res.message)
         }
     } catch (error) {
+        console.log("error", error);
         sendServerError(res, error.message);
     }
 }

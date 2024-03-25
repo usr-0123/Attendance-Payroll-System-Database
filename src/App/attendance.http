@@ -3,10 +3,10 @@
 POST  http://localhost:8200/api/attendance/new
 Content-Type: application/json
 {
-    "AttendanceID":"1",
-    "EmployeeID": "EMP001",
-    "Date": "2024-03-19",
-    "TimeIn": "2024-03-19 08:00:00",
+    "AttendanceID":"",
+    "EmployeeID": "",
+    "Date": "",
+    "TimeIn": "",
     "TimeOut": "2024-03-19 16:00:00"  
 }
 

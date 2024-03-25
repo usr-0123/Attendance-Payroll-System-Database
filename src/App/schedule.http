@@ -4,12 +4,11 @@ POST http://localhost:8200/api/schedule
 Content-Type: application/json
 
 {
-    "ScheduleID":"10",
-    "EmployeeID":"1",
+    "EmailAddress":"john@example.com",
     "ScheduleName":"Night Shift",
-    "CheckIn":"1900-01-01 08:00:00.000",
-    "CheckOut":"1900-01-01 19:00:00.000",
-    "Days":"Friday"
+    "CheckIn":"08:00:00",
+    "CheckOut":"19:00:00",
+    "Days":"testing1234555r"
 }
 
 # READ SCHEDULE
@@ -17,20 +16,23 @@ Content-Type: application/json
 GET http://localhost:8200/api/schedule/all
 
 ###
-GET  http://localhost:8200/api/schedule/1
+GET http://localhost:8200/api/schedule/allEmployeesWithSchedules
+
+###
+GET  http://localhost:8200/api/schedule/2d6efa5b-0890-4d87-a89e-ebaa5e8e6e51
 
 # UPDATE SCHEDULE
 ###
-PUT  http://localhost:8200/api/schedule/1
+PUT  http://localhost:8200/api/schedule/0bef60ab-30b3-497f-a286-dcc3b7cfac10
 Content-Type: application/json
 
 {
     "ScheduleName":"Check",
     "CheckIn":"1900-01-01 08:00:00.000",
     "CheckOut":"1900-01-01 09:00:00.000",
-    "Days":"Wednesday"
+    "DAYS":"Wednesday"
 }
 
 # DELETE SCHEDULE
 ###
-DELETE  http://localhost:8200/api/schedule/1
+DELETE  http://localhost:8200/api/schedule/80823470-6845-453b-ae28-d6bdddbbc8fd

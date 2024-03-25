@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
     addScheduleController,
     getScheduleController,
+    getAllEmployeesWithSchedulesController,
     getScheduleByIDController,
     updateScheduleController,
     deleteScheduleController
@@ -11,6 +12,7 @@ import {
 const scheduleRouter = Router();
 
 scheduleRouter.post("/schedule", addScheduleController);
+scheduleRouter.get("/schedule/allEmployeesWithSchedules", getAllEmployeesWithSchedulesController);
 scheduleRouter.get("/schedule/all", getScheduleController);
 scheduleRouter.get("/schedule/:ScheduleID", getScheduleByIDController);
 scheduleRouter.put("/schedule/:ScheduleID", updateScheduleController);

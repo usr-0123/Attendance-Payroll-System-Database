@@ -4,14 +4,14 @@ POST  http://localhost:8200/api/employee/register
 Content-Type: application/json
 
 {
-    "EmployeeID":"1234",
-    "First_name":"Lewis Kipngetich",
+    "EmployeeID":"12345",
+    "First_name":"Test2",
     "Last_name":"Kemboi",
-    "Email_address":"kemboilewis@example.com",
+    "Email_address":"test2@example.com",
     "Password":"@Usr0123!",
     "Contact_information":"0701282658",
     "Gender":"Male",
-    "Admin_role":"Admin",
+    "Admin_role":"EMployee",
     "Date_of_Birth":"1997-07-07",
     "Country":"Kenya",
     "City":"Nyeri",
@@ -40,4 +40,4 @@ GET http://localhost:8200/api/employee/fetchByEmail/kemboilewis@example.com
 
 # Delete an employee by email address
 ###
-DELETE http://localhost:8200/api/employee/deleteByEmail/kemboilewis@example.com
+DELETE http://localhost:8200/api/employee/deleteByEmail/alice@example.com
