@@ -4,13 +4,13 @@ POST  http://localhost:8200/api/employee/register
 Content-Type: application/json
 
 {
-    "First_name":"Test2",
+    "First_name":"Lewis",
     "Last_name":"Kemboi",
-    "Email_address":"test3@example.com",
+    "Email_address":"kemboilewis6@gmail.com",
     "Password":"@Usr0123!",
     "Contact_information":"0701282658",
     "Gender":"Male",
-    "Admin_role":"EMployee",
+    "Admin_role":"Admin",
     "Date_of_Birth":"1997-07-07",
     "Country":"Kenya",
     "City":"Nyeri",

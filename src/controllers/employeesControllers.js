@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { v4 } from "uuid";
 import nodemailer from 'nodemailer';
-// import logger from "../utilis/logger.js";
+import logger from "../utilis/logger.js";
 // import emailTemp from "../../../MailActivities/emailTemp.js";
 
 import {
@@ -51,10 +51,6 @@ export const registerNewEmployeeController = async (req, res) => {
 
         const existingEmployee = await getEmployeeByEmailService(Email_address)
 
-        // console.log('Existing employee', existingEmployee);
-
-        ///////////////////////////////////////////////
-
         if (existingEmployee === 1) {
 
           console.log("existingEmployee.rowsAffected == [1]");
@@ -87,6 +83,7 @@ export const registerNewEmployeeController = async (req, res) => {
             if (result.message) {
                 sendServerError(res, result.message)
             } else {
+              await sendMail(Email_address, First_name, Last_name, Password)
                 sendCreated(res, 'Employee created successfully');
             }
         }
@@ -97,6 +94,49 @@ export const registerNewEmployeeController = async (req, res) => {
         sendServerError(res, error.message)
     }
 }
+
+// Email upon registration
+export const sendMail = async (Email_address, First_name, Last_name, Password) => {
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.Email,
+      pass: process.env.Password,
+    },
+  });
+   
+  // Generate HTML string for the email content
+  const emailTemp = `
+  <!DOCTYPE html>
+  <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
+  <head>
+      <title>LOGIN CREDENTIALS, ${First_name} ${Last_name}!</title>
+  </head>
+  <body>
+      <p>Dear ${First_name} ${Last_name},</p>
+      <p>We're excited to have you as a member!</p>
+      <p>Log in to your account with this email address ${Email_address}</p>
+      <p>Use the password ${Password}, login and update your password.</p>
+      <p>Log in to edit your personal details as needed.</p>
+  </body>
+  </html>
+`;
+   
+  const mailOptions = {
+    from: process.env.Email_address,
+    to: Email_address,
+    subject: "Welcome onboard to Luwi PLC",
+    html: emailTemp,
+  };
+   
+  try {
+    logger.info("Sending mail....");
+    await transporter.sendMail(mailOptions);
+    logger.info("Email sent successfully!");
+  } catch (error) {
+    logger.error(error);
+  }
+  };
 
 // Login employee
 export const loginEmployeeController = async (req, res) => {
